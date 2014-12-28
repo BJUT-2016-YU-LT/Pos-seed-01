@@ -16,4 +16,16 @@ public class Item {
         this.unit = unit;
         this.price = price;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }
