@@ -8,6 +8,7 @@ public class Item {
     private String name;
     private String unit;
     private double price;
+    private double discount;
 
     public Item(String barCode, String name, String unit, double price) {
 
@@ -15,12 +16,17 @@ public class Item {
         this.name = name;
         this.unit = unit;
         this.price = price;
+        this.discount = 1.00;
+    }
+
+    public Item(String barCode, String name, String unit, double price, double discount) {
+        this(barCode, name, unit, price);
+        this.discount = discount;
     }
 
     public String getName() {
         return name;
     }
-
     public String getUnit() {
         return unit;
     }
@@ -30,4 +36,8 @@ public class Item {
     }
 
     public String getBarCode() { return barCode; }
+
+    public double getDiscount() {
+        return discount;
+    }
 }

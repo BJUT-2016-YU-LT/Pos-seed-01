@@ -106,4 +106,25 @@ public class PosTest {
         Pos pos = new Pos();
         pos.getShoppingList(shoppingChart);
     }
+
+    @Test
+    public void testShouldSupportDiscountWhenHavingOneFavourableItem() throws EmptyShoppingCartException {
+        // given
+        ShoppingChart shoppingChart = new ShoppingChart();
+        shoppingChart.add(new Item("ITEM000000", "雪碧", "瓶", 2.00, 0.8));
+
+        // when
+        Pos pos = new Pos();
+        String actualShoppingList = pos.getShoppingList(shoppingChart);
+
+        // then
+        String expectedShoppingList =
+                "***商店购物清单***\n"
+                        + "名称：雪碧，数量：1瓶，单价：2.00(元)，小计：1.60(元)\n"
+                        + "----------------------\n"
+                        + "总计：1.60(元)\n"
+                        + "节省：0.40(元)\n"
+                        + "**********************\n";
+        assertThat(actualShoppingList, is(expectedShoppingList));
+    }
 }

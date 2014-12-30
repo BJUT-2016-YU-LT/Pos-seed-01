@@ -22,18 +22,34 @@ public class Pos {
             shoppingListBuilder.append(getGroupOfItemsDescription(group));
 
         double total = getTotalPrice(items);
+        double savingMoney = getSavingMoney(items);
 
-        return shoppingListBuilder
+        StringBuilder subStringBuilder = shoppingListBuilder
                 .append("----------------------\n")
-                .append("总计：").append(String.format("%.2f", total)).append("(元)").append("\n")
+                .append("总计：").append(String.format("%.2f", total)).append("(元)").append("\n");
+
+        if (savingMoney == 0) {
+            return subStringBuilder
+                    .append("**********************\n")
+                    .toString();
+        }
+        return subStringBuilder
+                .append("节省：").append(String.format("%.2f", savingMoney)).append("(元)").append("\n")
                 .append("**********************\n")
                 .toString();
+    }
+
+    private double getSavingMoney(ArrayList<Item> items) {
+        double result = 0;
+        for (Item item : items)
+            result += item.getPrice() * (1 - item.getDiscount());
+        return result;
     }
 
     private double getTotalPrice(ArrayList<Item> items) {
         double result = 0;
         for (Item item : items)
-            result += item.getPrice();
+            result += item.getPrice() * item.getDiscount();
         return result;
     }
 
@@ -42,9 +58,10 @@ public class Pos {
         int amountOfItem = items.size();
 
         double priceOfItem = item.getPrice();
+        double discount = item.getDiscount();
         String nameOfItem = item.getName();
         String unitOfItem = item.getUnit();
-        double subTotal = priceOfItem * amountOfItem;
+        double subTotal = priceOfItem * amountOfItem * discount;
         return new StringBuilder()
                 .append("名称：").append(nameOfItem).append("，")
                 .append("数量：").append(amountOfItem).append(unitOfItem).append("，")
