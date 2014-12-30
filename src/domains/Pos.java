@@ -9,76 +9,34 @@ import java.util.*;
  */
 public class Pos {
     public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingCartException {
-        ArrayList<Item> items = shoppingChart.getItems();
-        if (items.size() <= 0) {
-            throw new EmptyShoppingCartException();
-        }
 
-        LinkedHashMap<String, List<Item>> itemsWithSameType = groupByItemBarCode(items);
+        Report report = new ReportDataGenerator(shoppingChart).generate();
+
         StringBuilder shoppingListBuilder = new StringBuilder()
-                        .append("***商店购物清单***\n");
+                .append("***商店购物清单***\n");
 
-        for (List<Item> group : itemsWithSameType.values())
-            shoppingListBuilder.append(getGroupOfItemsDescription(group));
-
-        double total = getTotalPrice(items);
-        double savingMoney = getSavingMoney(items);
-
+        for (ItemGroup itemGroup : report.getItemGroupies()) {
+            shoppingListBuilder.append(
+                    new StringBuilder()
+                            .append("名称：").append(itemGroup.groupName()).append("，")
+                            .append("数量：").append(itemGroup.groupSize()).append(itemGroup.groupUnit()).append("，")
+                            .append("单价：").append(String.format("%.2f", itemGroup.groupPrice())).append("(元)").append("，")
+                            .append("小计：").append(String.format("%.2f", itemGroup.subTotal())).append("(元)").append("\n")
+                            .toString());
+        }
         StringBuilder subStringBuilder = shoppingListBuilder
                 .append("----------------------\n")
-                .append("总计：").append(String.format("%.2f", total)).append("(元)").append("\n");
+                .append("总计：").append(String.format("%.2f", report.getTotal())).append("(元)").append("\n");
 
-        if (savingMoney == 0) {
+        double saving = report.getSaving();
+        if (saving == 0) {
             return subStringBuilder
                     .append("**********************\n")
                     .toString();
         }
         return subStringBuilder
-                .append("节省：").append(String.format("%.2f", savingMoney)).append("(元)").append("\n")
+                .append("节省：").append(String.format("%.2f", saving)).append("(元)").append("\n")
                 .append("**********************\n")
                 .toString();
-    }
-
-    private double getSavingMoney(ArrayList<Item> items) {
-        double result = 0;
-        for (Item item : items)
-            result += item.getPrice() * (1 - item.getDiscount());
-        return result;
-    }
-
-    private double getTotalPrice(ArrayList<Item> items) {
-        double result = 0;
-        for (Item item : items)
-            result += item.getPrice() * item.getDiscount();
-        return result;
-    }
-
-    private String getGroupOfItemsDescription(List<Item> items){
-        Item item = items.get(0);
-        int amountOfItem = items.size();
-
-        double priceOfItem = item.getPrice();
-        double discount = item.getDiscount();
-        String nameOfItem = item.getName();
-        String unitOfItem = item.getUnit();
-        double subTotal = priceOfItem * amountOfItem * discount;
-        return new StringBuilder()
-                .append("名称：").append(nameOfItem).append("，")
-                .append("数量：").append(amountOfItem).append(unitOfItem).append("，")
-                .append("单价：").append(String.format("%.2f", priceOfItem)).append("(元)").append("，")
-                .append("小计：").append(String.format("%.2f", subTotal)).append("(元)").append("\n")
-                .toString();
-    };
-
-    private LinkedHashMap<String, List<Item>> groupByItemBarCode(ArrayList<Item> items) {
-        LinkedHashMap<String, List<Item>> map = new LinkedHashMap<String, List<Item>>();
-        for (Item item : items) {
-            String itemBarCode = item.getBarCode();
-            if (!map.containsKey(itemBarCode)) {
-                map.put(itemBarCode, new ArrayList<Item>());
-            }
-            map.get(itemBarCode).add(item);
-        }
-        return map;
     }
 }
