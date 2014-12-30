@@ -57,7 +57,7 @@ public class PosTest {
         // given
         ShoppingChart shoppingChart = new ShoppingChart();
         shoppingChart.add(new Item("ITEM000000", "雪碧", "瓶", 2.00));
-        shoppingChart.add(new Item("ITEM000000", "可口可乐", "瓶", 3.00));
+        shoppingChart.add(new Item("ITEM000001", "可口可乐", "瓶", 3.00));
 
         // when
         Pos pos = new Pos();
@@ -68,6 +68,28 @@ public class PosTest {
                 "***商店购物清单***\n"
                         + "名称：雪碧，数量：1瓶，单价：2.00(元)，小计：2.00(元)\n"
                         + "名称：可口可乐，数量：1瓶，单价：3.00(元)，小计：3.00(元)\n"
+                        + "----------------------\n"
+                        + "总计：5.00(元)\n"
+                        + "**********************\n";
+        assertThat(actualShoppingList, is(expectedShoppingList));
+    }
+
+    @Test
+    public void testGetCorrectShoppingListWhenDifferentItemHaveSameItemName() throws  Exception{
+        // given
+        ShoppingChart shoppingChart = new ShoppingChart();
+        shoppingChart.add(new Item("ITEM000000", "雪碧", "瓶", 2.00));
+        shoppingChart.add(new Item("ITEM000002", "雪碧", "瓶", 3.00));
+
+        // when
+        Pos pos = new Pos();
+        String actualShoppingList = pos.getShoppingList(shoppingChart);
+
+        // then
+        String expectedShoppingList =
+                "***商店购物清单***\n"
+                        + "名称：雪碧，数量：1瓶，单价：2.00(元)，小计：2.00(元)\n"
+                        + "名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)\n"
                         + "----------------------\n"
                         + "总计：5.00(元)\n"
                         + "**********************\n";

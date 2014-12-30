@@ -1,9 +1,6 @@
 package domains;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2014/12/28.
@@ -11,7 +8,7 @@ import java.util.Map;
 public class Pos {
     public String getShoppingList(ShoppingChart shoppingChart) {
         ArrayList<Item> items = shoppingChart.getItems();
-        Map<String, List<Item>> itemsWithSameType = groupByItemName(items);
+        LinkedHashMap<String, List<Item>> itemsWithSameType = groupByItemBarCode(items);
         StringBuilder shoppingListBuilder = new StringBuilder()
                         .append("***商店购物清单***\n");
 
@@ -51,14 +48,14 @@ public class Pos {
                 .toString();
     };
 
-    private Map<String, List<Item>> groupByItemName(ArrayList<Item> items) {
-        Map<String, List<Item>> map = new HashMap<String, List<Item>>();
+    private LinkedHashMap<String, List<Item>> groupByItemBarCode(ArrayList<Item> items) {
+        LinkedHashMap<String, List<Item>> map = new LinkedHashMap<String, List<Item>>();
         for (Item item : items) {
-            String itemName = item.getName();
-            if (!map.containsKey(itemName)) {
-                map.put(itemName, new ArrayList<Item>());
+            String itemBarCode = item.getBarCode();
+            if (!map.containsKey(itemBarCode)) {
+                map.put(itemBarCode, new ArrayList<Item>());
             }
-            map.get(itemName).add(item);
+            map.get(itemBarCode).add(item);
         }
         return map;
     }
