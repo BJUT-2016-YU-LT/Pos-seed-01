@@ -1,3 +1,4 @@
+import common.EmptyShoppingCartException;
 import domains.Item;
 import domains.Pos;
 import domains.ShoppingChart;
@@ -94,5 +95,15 @@ public class PosTest {
                         + "总计：5.00(元)\n"
                         + "**********************\n";
         assertThat(actualShoppingList, is(expectedShoppingList));
+    }
+
+    @Test(expected = EmptyShoppingCartException.class)
+    public void testThrowExceptionWhenNoItemsInShoppingCart() throws EmptyShoppingCartException{
+        // given
+        ShoppingChart shoppingChart = new ShoppingChart();
+
+        // when
+        Pos pos = new Pos();
+        pos.getShoppingList(shoppingChart);
     }
 }

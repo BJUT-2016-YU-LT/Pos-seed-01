@@ -1,20 +1,25 @@
 package domains;
 
+import common.EmptyShoppingCartException;
+
 import java.util.*;
 
 /**
  * Created by Administrator on 2014/12/28.
  */
 public class Pos {
-    public String getShoppingList(ShoppingChart shoppingChart) {
+    public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingCartException {
         ArrayList<Item> items = shoppingChart.getItems();
+        if (items.size() <= 0) {
+            throw new EmptyShoppingCartException();
+        }
+
         LinkedHashMap<String, List<Item>> itemsWithSameType = groupByItemBarCode(items);
         StringBuilder shoppingListBuilder = new StringBuilder()
                         .append("***商店购物清单***\n");
 
-        for (List<Item> group : itemsWithSameType.values()) {
+        for (List<Item> group : itemsWithSameType.values())
             shoppingListBuilder.append(getGroupOfItemsDescription(group));
-        }
 
         double total = getTotalPrice(items);
 
