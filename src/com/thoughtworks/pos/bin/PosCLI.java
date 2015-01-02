@@ -21,8 +21,7 @@ public class PosCLI {
     }
 
     private static ShoppingChart ParseShoppingChartFromFile(String arg) throws IOException {
-        File file = new File(arg);
-        InputParser inputParser = new InputParser(file);
+        InputParser inputParser = new InputParser(new File(arg));
         return inputParser.parser();
     }
 }

@@ -20,7 +20,6 @@ public class Item {
         this.setName(name);
         this.setUnit(unit);
         this.setPrice(price);
-        this.setDiscount(1.00);
     }
 
     public Item(String barcode, String name, String unit, double price, double discount) {
@@ -42,6 +41,8 @@ public class Item {
     public String getBarcode() { return barcode; }
 
     public double getDiscount() {
+        if (discount == 0.00)
+            return 1.00;
         return discount;
     }
 

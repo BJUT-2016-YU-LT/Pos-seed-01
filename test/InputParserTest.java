@@ -60,4 +60,29 @@ public class InputParserTest {
         assertThat(item.getPrice(), is(2.00));
         assertThat(item.getDiscount(), is(0.8));
     }
+
+    @Test
+    public void testParseJsonWhenHasNoDiscount() throws Exception {
+        PrintWriter printWriter = new PrintWriter(file);
+        String sampleInput = new StringBuilder()
+                .append("[\n")
+                .append("{\n")
+                .append("\"barcode\": 'ITEM000004',\n")
+                .append("\"name\": '电池',\n")
+                .append("\"unit\": '个',\n")
+                .append("\"price\": 2.00\n")
+                .append("}\n")
+                .append("]")
+                .toString();
+
+        printWriter.write(sampleInput);
+        printWriter.close();
+
+        InputParser inputParser = new InputParser(file);
+        ArrayList<Item> items = inputParser.parser().getItems();
+
+        assertThat(items.size(), is(1));
+        Item item = items.get(0);
+        assertThat(item.getDiscount(), is(1.00));
+    }
 }
