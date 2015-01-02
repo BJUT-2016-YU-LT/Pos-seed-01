@@ -4,24 +4,28 @@ package domains;
  * Created by Administrator on 2014/12/28.
  */
 public class Item {
-    private String barCode;
+    private String barcode;
     private String name;
     private String unit;
     private double price;
     private double discount;
 
-    public Item(String barCode, String name, String unit, double price) {
 
-        this.barCode = barCode;
-        this.name = name;
-        this.unit = unit;
-        this.price = price;
-        this.discount = 1.00;
+    public Item() {
     }
 
-    public Item(String barCode, String name, String unit, double price, double discount) {
-        this(barCode, name, unit, price);
-        this.discount = discount;
+    public Item(String barcode, String name, String unit, double price) {
+
+        this.setBarcode(barcode);
+        this.setName(name);
+        this.setUnit(unit);
+        this.setPrice(price);
+        this.setDiscount(1.00);
+    }
+
+    public Item(String barcode, String name, String unit, double price, double discount) {
+        this(barcode, name, unit, price);
+        this.setDiscount(discount);
     }
 
     public String getName() {
@@ -35,9 +39,29 @@ public class Item {
         return price;
     }
 
-    public String getBarCode() { return barCode; }
+    public String getBarcode() { return barcode; }
 
     public double getDiscount() {
         return discount;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 }

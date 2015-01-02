@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2014/12/31.
  */
-class ItemGroup {
+public class ItemGroup {
     private List<Item> items;
 
     public ItemGroup(List<Item> items) {

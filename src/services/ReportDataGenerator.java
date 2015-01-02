@@ -1,6 +1,10 @@
-package domains;
+package services;
 
 import common.EmptyShoppingCartException;
+import domains.Item;
+import domains.ItemGroup;
+import domains.Report;
+import domains.ShoppingChart;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -37,7 +41,7 @@ public class ReportDataGenerator {
     public static LinkedHashMap<String, List<Item>> groupByItemBarCode(ArrayList<Item> items) {
         LinkedHashMap<String, List<Item>> map = new LinkedHashMap<String, List<Item>>();
         for (Item item : items) {
-            String itemBarCode = item.getBarCode();
+            String itemBarCode = item.getBarcode();
             if (!map.containsKey(itemBarCode)) {
                 map.put(itemBarCode, new ArrayList<Item>());
             }

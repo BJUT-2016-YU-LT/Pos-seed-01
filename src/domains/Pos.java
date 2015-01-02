@@ -1,8 +1,7 @@
 package domains;
 
 import common.EmptyShoppingCartException;
-
-import java.util.*;
+import services.ReportDataGenerator;
 
 /**
  * Created by Administrator on 2014/12/28.

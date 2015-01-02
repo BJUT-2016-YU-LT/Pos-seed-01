@@ -5,7 +5,12 @@
   <property name="test.build.dir" value="build/test" />
   <property name="test.src.dir" value="test" />
 
-  <path id="classpath.base" />
+  <path id="classpath.base">
+    <pathelement location="lib/commons-io-2.4.jar" />
+    <pathelement location="lib/jackson-annotations-2.5.0.jar" />
+    <pathelement location="lib/jackson-core-2.5.0.jar" />
+    <pathelement location="lib/jackson-databind-2.5.0.jar" />
+  </path>
 
   <path id="classpath.test">
     <pathelement location="lib/junit-4.12.jar" />
