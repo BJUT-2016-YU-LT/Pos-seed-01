@@ -1,4 +1,4 @@
-package domains;
+package com.thoughtworks.pos.domains;
 
 /**
  * Created by Administrator on 2014/12/28.

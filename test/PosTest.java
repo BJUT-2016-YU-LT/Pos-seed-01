@@ -1,7 +1,7 @@
-import common.EmptyShoppingCartException;
-import domains.Item;
-import domains.Pos;
-import domains.ShoppingChart;
+import com.thoughtworks.pos.common.EmptyShoppingCartException;
+import com.thoughtworks.pos.domains.Item;
+import com.thoughtworks.pos.domains.Pos;
+import com.thoughtworks.pos.domains.ShoppingChart;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

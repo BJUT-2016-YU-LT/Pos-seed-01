@@ -1,4 +1,4 @@
-package domains;
+package com.thoughtworks.pos.domains;
 
 import java.util.ArrayList;
 

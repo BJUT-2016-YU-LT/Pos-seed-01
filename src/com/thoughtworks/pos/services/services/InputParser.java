@@ -1,10 +1,10 @@
-package services;
+package com.thoughtworks.pos.services.services;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domains.Item;
-import domains.ShoppingChart;
+import com.thoughtworks.pos.domains.Item;
+import com.thoughtworks.pos.domains.ShoppingChart;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

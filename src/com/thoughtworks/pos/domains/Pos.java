@@ -1,7 +1,7 @@
-package domains;
+package com.thoughtworks.pos.domains;
 
-import common.EmptyShoppingCartException;
-import services.ReportDataGenerator;
+import com.thoughtworks.pos.common.EmptyShoppingCartException;
+import com.thoughtworks.pos.services.services.ReportDataGenerator;
 
 /**
  * Created by Administrator on 2014/12/28.

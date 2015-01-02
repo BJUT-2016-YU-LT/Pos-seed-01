@@ -1,10 +1,10 @@
-package services;
+package com.thoughtworks.pos.services.services;
 
-import common.EmptyShoppingCartException;
-import domains.Item;
-import domains.ItemGroup;
-import domains.Report;
-import domains.ShoppingChart;
+import com.thoughtworks.pos.common.EmptyShoppingCartException;
+import com.thoughtworks.pos.domains.Item;
+import com.thoughtworks.pos.domains.ItemGroup;
+import com.thoughtworks.pos.domains.Report;
+import com.thoughtworks.pos.domains.ShoppingChart;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

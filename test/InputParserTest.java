@@ -2,11 +2,11 @@
  * Created by Administrator on 2015/1/2.
  */
 
-import domains.Item;
+import com.thoughtworks.pos.domains.Item;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import services.InputParser;
+import com.thoughtworks.pos.services.services.InputParser;
 
 import java.io.File;
 import java.io.PrintWriter;

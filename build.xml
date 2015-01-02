@@ -56,6 +56,7 @@
   <target name="clean">
     <delete>
         <fileset dir="${basedir}" includes="**/*.class" />
+        <fileset dir="${main.build.dir}" includes="Pos.jar" />
     </delete>
     <echo message="clean done" />
   </target>
