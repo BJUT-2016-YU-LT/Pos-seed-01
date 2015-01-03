@@ -20,8 +20,8 @@ public class PosCLI {
         System.out.print(shoppingList);
     }
 
-    private static ShoppingChart ParseShoppingChartFromFile(String arg) throws IOException {
-        InputParser inputParser = new InputParser(new File(arg));
+    private static ShoppingChart ParseShoppingChartFromFile(String pathname) throws IOException {
+        InputParser inputParser = new InputParser(new File(pathname));
         return inputParser.parser();
     }
 }
