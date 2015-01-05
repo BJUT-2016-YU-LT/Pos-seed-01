@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.thoughtworks.pos.services.services.InputParser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -17,39 +18,47 @@ import static org.junit.Assert.assertThat;
 
 public class InputParserTest {
 
-    private File file;
+    private File indexFile;
+    private File itemsFile;
 
     @Before
     public void setUp() throws Exception {
-        file = new File("./sampleInput.json");
+        indexFile = new File("./sampleIndex.json");
+        itemsFile = new File("./itemsFile.json");
     }
 
     @After
     public void tearDown() throws Exception {
-        if(file.exists()){
-            file.delete();
+        if(indexFile.exists()){
+            indexFile.delete();
+        }
+        if(itemsFile.exists()){
+            itemsFile.delete();
         }
     }
 
     @Test
     public void testParseJsonFileToItems() throws Exception {
-        PrintWriter printWriter = new PrintWriter(file);
-        String sampleInput = new StringBuilder()
-                .append("[\n")
+        String sampleIndex = new StringBuilder()
                 .append("{\n")
-                .append("\"barcode\": 'ITEM000004',\n")
+                .append("'ITEM000004':{\n")
                 .append("\"name\": '电池',\n")
                 .append("\"unit\": '个',\n")
                 .append("\"price\": 2.00,\n")
                 .append("\"discount\": 0.8\n")
                 .append("}\n")
+                .append("}\n")
+                .toString();
+        WriteToFile(indexFile, sampleIndex);
+
+        String sampleItems = new StringBuilder()
+                .append("[\n")
+                .append("\"ITEM000004\"")
                 .append("]")
                 .toString();
+        WriteToFile(itemsFile, sampleItems);
 
-        printWriter.write(sampleInput);
-        printWriter.close();
-
-        InputParser inputParser = new InputParser(file);
+        InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
 
         assertThat(items.size(), is(1));
@@ -61,27 +70,34 @@ public class InputParserTest {
         assertThat(item.getDiscount(), is(0.8));
     }
 
+    private void WriteToFile(File file, String content) throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(file);
+        printWriter.write(content);
+        printWriter.close();
+    }
+
     @Test
     public void testParseJsonWhenHasNoDiscount() throws Exception {
-        PrintWriter printWriter = new PrintWriter(file);
-        String sampleInput = new StringBuilder()
-                .append("[\n")
+        String sampleIndex = new StringBuilder()
                 .append("{\n")
-                .append("\"barcode\": 'ITEM000004',\n")
+                .append("'ITEM000004':{\n")
                 .append("\"name\": '电池',\n")
                 .append("\"unit\": '个',\n")
                 .append("\"price\": 2.00\n")
                 .append("}\n")
+                .append("}\n")
+                .toString();
+        WriteToFile(indexFile, sampleIndex);
+
+        String sampleItems = new StringBuilder()
+                .append("[\n")
+                .append("\"ITEM000004\"")
                 .append("]")
                 .toString();
+        WriteToFile(itemsFile, sampleItems);
 
-        printWriter.write(sampleInput);
-        printWriter.close();
-
-        InputParser inputParser = new InputParser(file);
+        InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
-
-        assertThat(items.size(), is(1));
         Item item = items.get(0);
         assertThat(item.getDiscount(), is(1.00));
     }

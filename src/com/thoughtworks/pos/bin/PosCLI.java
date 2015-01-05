@@ -13,15 +13,11 @@ import java.io.IOException;
  */
 public class PosCLI {
     public static void main (String args[]) throws IOException, EmptyShoppingCartException {
-        ShoppingChart shoppingChart = ParseShoppingChartFromFile(args[0]);
+        InputParser inputParser = new InputParser(new File(args[0]), new File(args[1]));
+        ShoppingChart shoppingChart = inputParser.parser();
 
         Pos pos = new Pos();
         String shoppingList = pos.getShoppingList(shoppingChart);
         System.out.print(shoppingList);
-    }
-
-    private static ShoppingChart ParseShoppingChartFromFile(String pathname) throws IOException {
-        InputParser inputParser = new InputParser(new File(pathname));
-        return inputParser.parser();
     }
 }
