@@ -11,7 +11,7 @@ public class ItemGroup {
 
     public ItemGroup(Item item) {
         this.item = item;
-        this.quanitty = 1;
+        this.quanitty = 0;
     }
 
     public String groupName() {

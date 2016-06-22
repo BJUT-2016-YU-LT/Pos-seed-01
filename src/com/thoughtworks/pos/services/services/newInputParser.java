@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.pos.domains.Item;
 import com.thoughtworks.pos.domains.ShoppingChart;
 import org.apache.commons.io.FileUtils;
+import com.thoughtworks.pos.common.BarCodeReuseException;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 
 
 /**
- * Created by Administrator on 2015/1/2.
+ * Created by 5Wenbin 2016.6.22
  */
 public class newInputParser {
     private File indexFile;
@@ -26,23 +27,30 @@ public class newInputParser {
         objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
     }
 
-    public ShoppingChart parser() throws IOException {
+    public ShoppingChart parser() throws IOException,BarCodeReuseException {
         return BuildShoppingChart(getItemIndexes());
     }
 
-    private ShoppingChart BuildShoppingChart(HashMap<String, Item> itemIndexes) {
+    private ShoppingChart BuildShoppingChart(Item[] itemIndexes) throws BarCodeReuseException {
         ShoppingChart shoppingChart = new ShoppingChart();
-        for (String barcode : barCodes) {
-            Item mappedItem = itemIndexes.get(barcode);
-            Item item = new Item(barcode, mappedItem.getName(), mappedItem.getUnit(), mappedItem.getPrice(), mappedItem.getDiscount());
+        HashMap<String, Item> table = new HashMap<String, Item>();
+        for (Item item:itemIndexes) {
+            Item i = table.get(item.getBarcode());
+            if(i == null){
+                table.put(item.getBarcode(), item);
+            }
+            else{
+                if(!i.equals(item))
+                    throw new BarCodeReuseException();
+            }
             shoppingChart.add(item);
         }
         return shoppingChart;
     }
 
-    private HashMap<String, Item> getItemIndexes() throws IOException {
+    private Item[] getItemIndexes() throws IOException {
         String itemsIndexStr = FileUtils.readFileToString(indexFile);
-        TypeReference<HashMap<String,Item>> typeRef = new TypeReference<HashMap<String,Item>>() {};
+        TypeReference<Item[]> typeRef = new TypeReference<Item[]>() {};
         return objectMapper.readValue(itemsIndexStr, typeRef);
     }
 

@@ -60,6 +60,14 @@ public class Item {
         this.discount = discount;
     }
 
+    public boolean equals(Item item){
+        return this.name.equals(item.name)
+                &&this.price==item.price
+                &&this.discount==item.discount
+                &&this.unit.equals(item.unit)
+                &&this.barcode.equals(item.barcode);
+    }
+
    /* public Item binding(Item gift, double newPrice){
         return Item(this.barcode, this.name, this. unit, newPrice)
     }*/
