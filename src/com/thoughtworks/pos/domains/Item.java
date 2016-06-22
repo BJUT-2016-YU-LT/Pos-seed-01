@@ -18,7 +18,7 @@ public class Item {
         this.setName(name);
         this.setUnit(unit);
         this.setPrice(price);
-        discount = 1;
+        this.discount = 1;
     }
 
     public Item(String barcode, String name, String unit, double price, double discount) {
@@ -50,9 +50,7 @@ public class Item {
         this.name = name;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+    public void setUnit(String unit) { this.unit = unit; }
 
     public void setPrice(double price) {
         this.price = price;
@@ -64,5 +62,5 @@ public class Item {
 
    /* public Item binding(Item gift, double newPrice){
         return Item(this.barcode, this.name, this. unit, newPrice)
-    }
+    }*/
 }

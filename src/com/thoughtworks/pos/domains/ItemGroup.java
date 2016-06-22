@@ -3,42 +3,34 @@ package com.thoughtworks.pos.domains;
 import java.util.List;
 
 /**
- * Created by Administrator on 2014/12/31.
+ * Created by 5Wenbin 2016.6.22
  */
 public class ItemGroup {
-    private List<Item> items;
+    private Item item;
+    private int quanitty;
 
-    public ItemGroup(List<Item> items) {
-        this.items = items;
+    public ItemGroup(Item item) {
+        this.item = item;
+        this.quanitty = 1;
     }
 
     public String groupName() {
-        return items.get(0).getName();
+        return item.getName();
     }
 
     public int groupSize() {
-        return items.size();
+        return quanitty;
     }
 
     public String groupUnit() {
-        return items.get(0).getUnit();
+        return item.getUnit();
     }
 
-    public double groupPrice() {
-        return items.get(0).getPrice();
-    }
+    public double groupPrice() { return item.getPrice(); }
 
-    public double subTotal() {
-        double result = 0.00;
-        for (Item item : items)
-            result += item.getPrice() * item.getDiscount();
-        return result;
-    }
+    public void addOne(){ quanitty++; }
 
-    public double saving() {
-        double result = 0.00;
-        for (Item item : items)
-            result += item.getPrice() * (1 - item.getDiscount());
-        return result;
-    }
+    public double subTotal() { return item.getPrice()*quanitty*item.getDiscount(); }
+
+    public double saving() { return item.getPrice()*quanitty-this.subTotal(); }
 }
