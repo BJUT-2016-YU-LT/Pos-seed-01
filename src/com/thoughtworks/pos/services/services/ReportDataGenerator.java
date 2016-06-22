@@ -33,19 +33,19 @@ public class ReportDataGenerator {
 
     private List<ItemGroup> GetItemGroups(ArrayList<Item> items) {
         List<ItemGroup> itemGroupies = new LinkedList<ItemGroup>();
-        for (List<Item> group : groupByItemBarCode(items).values())
-            itemGroupies.add(new ItemGroup(group));
+        for (ItemGroup group: groupByItemBarCode(items).values())
+            itemGroupies.add(group);
         return itemGroupies;
     }
 
-    private static LinkedHashMap<String, List<Item>> groupByItemBarCode(ArrayList<Item> items) {
-        LinkedHashMap<String, List<Item>> map = new LinkedHashMap<String, List<Item>>();
+    private static LinkedHashMap<String, ItemGroup> groupByItemBarCode(ArrayList<Item> items) {
+        LinkedHashMap<String, ItemGroup> map = new LinkedHashMap<String, ItemGroup>();
         for (Item item : items) {
             String itemBarCode = item.getBarcode();
             if (!map.containsKey(itemBarCode)) {
-                map.put(itemBarCode, new ArrayList<Item>());
+                map.put(itemBarCode, new ItemGroup(item));
             }
-            map.get(itemBarCode).add(item);
+            map.get(itemBarCode).addOne();
         }
         return map;
     }

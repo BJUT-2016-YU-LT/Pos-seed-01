@@ -1,7 +1,7 @@
 package com.thoughtworks.pos.domains;
 
 /**
- * Created by Administrator on 2014/12/28.
+ * Created by 5Wenbin 2016.6.22
  */
 public class Item {
     private String barcode;
@@ -10,16 +10,15 @@ public class Item {
     private double price;
     private double discount;
 
-
     public Item() {
     }
 
     public Item(String barcode, String name, String unit, double price) {
-
         this.setBarcode(barcode);
         this.setName(name);
         this.setUnit(unit);
         this.setPrice(price);
+        this.discount = 1;
     }
 
     public Item(String barcode, String name, String unit, double price, double discount) {
@@ -30,6 +29,7 @@ public class Item {
     public String getName() {
         return name;
     }
+
     public String getUnit() {
         return unit;
     }
@@ -40,11 +40,7 @@ public class Item {
 
     public String getBarcode() { return barcode; }
 
-    public double getDiscount() {
-        if (discount == 0.00)
-            return 1.00;
-        return discount;
-    }
+    public double getDiscount() { return discount; }
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
@@ -54,9 +50,7 @@ public class Item {
         this.name = name;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+    public void setUnit(String unit) { this.unit = unit; }
 
     public void setPrice(double price) {
         this.price = price;
@@ -65,4 +59,8 @@ public class Item {
     public void setDiscount(double discount) {
         this.discount = discount;
     }
+
+   /* public Item binding(Item gift, double newPrice){
+        return Item(this.barcode, this.name, this. unit, newPrice)
+    }*/
 }
