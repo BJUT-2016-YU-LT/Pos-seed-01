@@ -9,7 +9,6 @@ public class Item {
     private String unit;
     private double price;
     private double discount;
-    private int dangerous;
 
     public Item() {
     }
@@ -19,6 +18,7 @@ public class Item {
         this.setName(name);
         this.setUnit(unit);
         this.setPrice(price);
+        discount = 1;
     }
 
     public Item(String barcode, String name, String unit, double price, double discount) {
@@ -38,15 +38,9 @@ public class Item {
         return price;
     }
 
-    public String getBarcode() {
-        return barcode;
-    }
+    public String getBarcode() { return barcode; }
 
-    public double getDiscount() {
-        if (discount == 0.00)
-            return 1.00;
-        return discount;
-    }
+    public double getDiscount() { return discount; }
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
@@ -66,5 +60,9 @@ public class Item {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+   /* public Item binding(Item gift, double newPrice){
+        return Item(this.barcode, this.name, this. unit, newPrice)
     }
 }

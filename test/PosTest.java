@@ -11,6 +11,9 @@ import static org.junit.Assert.assertThat;
  * Created by Administrator on 2014/12/28.
  */
 public class PosTest {
+
+    //git test
+
     @Test
     public void testGetCorrectShoppingListForSingleItem() throws Exception {
         // given
