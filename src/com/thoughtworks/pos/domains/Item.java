@@ -8,7 +8,7 @@ public class Item {
     private String name;
     private String unit;
     private double price;
-    private double discount;
+    private double discount = 1.0;
 
     public Item() {
     }
@@ -18,7 +18,6 @@ public class Item {
         this.setName(name);
         this.setUnit(unit);
         this.setPrice(price);
-        this.discount = 1;
     }
 
     public Item(String barcode, String name, String unit, double price, double discount) {
@@ -56,8 +55,12 @@ public class Item {
         this.price = price;
     }
 
-    public void setDiscount(double discount) {
+    public boolean setDiscount(double discount) {
+        if(discount>1){
+            return false;
+        }
         this.discount = discount;
+        return true;
     }
 
     public boolean equals(Item item){
