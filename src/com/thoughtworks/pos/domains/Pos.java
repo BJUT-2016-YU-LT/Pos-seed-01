@@ -8,6 +8,11 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Administrator on 2014/12/28.
  */
+
+/**
+ * Changed by 5Wenbin 2016.6.22
+ */
+
 public class Pos {
     public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingCartException {
 
@@ -17,13 +22,13 @@ public class Pos {
                 .append("***商店购物清单***\n");
 
         //显示时间
-        /*
+
         SimpleDateFormat date = new SimpleDateFormat("yyyy年mm月dd日 HH:mm:ss");
         shoppingListBuilder
                 .append("打印时间:")
                 .append(date.format(new Date()).toString()).append("\n")
                 .append("----------------------\n");
-        */
+
         for (ItemGroup itemGroup : report.getItemGroupies()) {
             shoppingListBuilder.append(
                 new StringBuilder()
@@ -33,12 +38,13 @@ public class Pos {
                     .append("小计：").append(String.format("%.2f", itemGroup.subTotal())).append("(元)").append("\n")
                     .toString());
         }
-
+        boolean flag = false;
         for (ItemGroup itemGroup : report.getItemGroupies()) {
-            if(itemGroup.groupPromotion()&&itemGroup.groupSize()>1) {
+            if(itemGroup.groupPromotion()&&itemGroup.groupSize()>1&&!flag) {
                 shoppingListBuilder
                         .append("----------------------\n")
-                        .append("挥泪赠送的商品：\n");
+                        .append("挥泪赠送商品：\n");
+                flag = true;
             }
         }
         for (ItemGroup itemGroup : report.getItemGroupies()) {

@@ -42,12 +42,12 @@ public class InputParser {
     }
 
     private String[] getBoughtItemBarCodes() throws IOException {
-        String itemsStr = FileUtils.readFileToString(itemsFile);
+        String itemsStr = FileUtils.readFileToString(indexFile);
         return objectMapper.readValue(itemsStr, String[].class);
     }
 
     private HashMap<String, Item> getItemIndexes() throws IOException {
-        String itemsIndexStr = FileUtils.readFileToString(indexFile);
+        String itemsIndexStr = FileUtils.readFileToString(itemsFile);
         TypeReference<HashMap<String,Item>> typeRef = new TypeReference<HashMap<String,Item>>() {};
         return objectMapper.readValue(itemsIndexStr, typeRef);
     }

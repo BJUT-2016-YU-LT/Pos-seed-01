@@ -1,6 +1,22 @@
-[
-  "ITEM000004",
-  "ITEM000003",
-  "ITEM000002",
-  "ITEM000004"
-]
+{
+"ITEM000004":{
+"name":"电池",
+"unit":"个",
+"price":2.00,
+"promotion":true
+},
+"ITEM000003":{
+"name":"牛",
+"unit":"只",
+"price":2.00,
+"discount":0.6,
+"promotion":true
+},
+"ITEM000002":{
+"name":"油条",
+"unit":"根",
+"price":1.00,
+"discount":1,
+"promotion":true
+}
+}

@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by Administrator on 2014/12/28.
+ * Created by 5Wenbin 2016.6.22
  */
 public class PosTest {
 
@@ -136,6 +136,8 @@ public class PosTest {
         // given
         ShoppingChart shoppingChart = new ShoppingChart();
         shoppingChart.add(new Item("ITEM000000", "雪碧", "瓶", 2.00, 0.8));
+        shoppingChart.add(new Item("ITEM000001", "可乐", "罐", 2.00, true));
+        shoppingChart.add(new Item("ITEM000001", "可乐", "罐", 2.00, true));
         shoppingChart.add(new Item("ITEM000002", "雪碧", "瓶", 3.00, true));
         shoppingChart.add(new Item("ITEM000002", "雪碧", "瓶", 3.00, true));
 
@@ -147,44 +149,15 @@ public class PosTest {
         String expectedShoppingList =
                 "***商店购物清单***\n"
                         + "名称：雪碧，数量：1瓶，单价：2.00(元)，小计：1.60(元)\n"
+                        + "名称：可乐，数量：3罐，单价：2.00(元)，小计：4.00(元)\n"
                         + "名称：雪碧，数量：3瓶，单价：3.00(元)，小计：6.00(元)\n"
                         + "----------------------\n"
-                        + "挥泪赠送的商品：\n"
+                        + "挥泪赠送商品：\n"
+                        + "名称：可乐，数量：1罐，单价：2.00(元)，小计：2.00(元)\n"
                         + "名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)\n"
                         + "----------------------\n"
-                        + "总计：7.60(元)\n"
-                        + "节省：3.40(元)\n"
-                        + "**********************\n";
-        assertThat(actualShoppingList, is(expectedShoppingList));
-    }
-
-    @Test
-    public void testDifferentItemsHaveDiscountAndPromotionWithTime() throws  Exception{
-        // given
-        ShoppingChart shoppingChart = new ShoppingChart();
-        shoppingChart.add(new Item("ITEM000000", "雪碧", "瓶", 2.00, 0.8));
-        shoppingChart.add(new Item("ITEM000002", "雪碧", "瓶", 3.00, true));
-        shoppingChart.add(new Item("ITEM000002", "雪碧", "瓶", 3.00, true));
-
-        // when
-        Pos pos = new Pos();
-        String actualShoppingList = pos.getShoppingList(shoppingChart);
-
-        // then
-        SimpleDateFormat date = new SimpleDateFormat("yyyy年mm月dd日 HH:mm:ss");
-
-        String expectedShoppingList =
-                "***商店购物清单***\n"
-                        +"打印时间:"+ date.format(new Date()).toString() +"\n"
-                        +"----------------------\n"
-                        + "名称：雪碧，数量：1瓶，单价：2.00(元)，小计：1.60(元)\n"
-                        + "名称：雪碧，数量：3瓶，单价：3.00(元)，小计：6.00(元)\n"
-                        + "----------------------\n"
-                        + "挥泪赠送的商品：\n"
-                        + "名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)\n"
-                        + "----------------------\n"
-                        + "总计：7.60(元)\n"
-                        + "节省：3.40(元)\n"
+                        + "总计：11.60(元)\n"
+                        + "节省：5.40(元)\n"
                         + "**********************\n";
         assertThat(actualShoppingList, is(expectedShoppingList));
     }

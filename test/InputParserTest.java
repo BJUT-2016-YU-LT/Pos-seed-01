@@ -23,7 +23,7 @@ public class InputParserTest {
 
     @Before
     public void setUp() throws Exception {
-        indexFile = new File("./sampleIndex.json");
+        indexFile = new File("./sampleItems.json");
         itemsFile = new File("./itemsFile.json");
     }
 
@@ -54,14 +54,14 @@ public class InputParserTest {
                 .append("}\n")
                 .append("}\n")
                 .toString();
-        WriteToFile(indexFile, sampleIndex);
+        WriteToFile(itemsFile, sampleIndex);
 
         String sampleItems = new StringBuilder()
                 .append("[\n")
                 .append("\"ITEM000004\"")
                 .append("]")
                 .toString();
-        WriteToFile(itemsFile, sampleItems);
+        WriteToFile(indexFile, sampleItems);
 
         InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
@@ -78,7 +78,7 @@ public class InputParserTest {
 
     @Test
     public void testSingleItemHasDiscount() throws Exception {
-        String sampleIndex = new StringBuilder()
+        String sampleItems = new StringBuilder()
                 .append("{\n")
                 .append("\"ITEM000004\":{\n")
                 .append("\"name\": \"电池\",\n")
@@ -88,14 +88,14 @@ public class InputParserTest {
                 .append("}\n")
                 .append("}\n")
                 .toString();
-        WriteToFile(indexFile, sampleIndex);
+        WriteToFile(itemsFile, sampleItems);
 
-        String sampleItems = new StringBuilder()
+        String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("\"ITEM000004\"")
                 .append("]")
                 .toString();
-        WriteToFile(itemsFile, sampleItems);
+        WriteToFile(indexFile, sampleIndex);
 
         InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
@@ -106,7 +106,7 @@ public class InputParserTest {
 
     @Test
     public void testSingleItemHasPromotionItem() throws Exception {
-        String sampleIndex = new StringBuilder()
+        String sampleItems = new StringBuilder()
                 .append("{\n")
                 .append("\"ITEM000003\":{\n")
                 .append("\"name\": \"可乐\",\n")
@@ -116,14 +116,14 @@ public class InputParserTest {
                 .append("}\n")
                 .append("}\n")
                 .toString();
-        WriteToFile(indexFile, sampleIndex);
+        WriteToFile(itemsFile, sampleItems);
 
-        String sampleItems = new StringBuilder()
+        String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("\"ITEM000003\"")
                 .append("]")
                 .toString();
-        WriteToFile(itemsFile, sampleItems);
+        WriteToFile(indexFile, sampleIndex);
 
         InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
@@ -135,31 +135,25 @@ public class InputParserTest {
 
     @Test
     public void testSameItemsHavePromotionItem() throws Exception {
-        String sampleIndex = new StringBuilder()
+        String sampleItems = new StringBuilder()
                 .append("{\n")
                 .append("\"ITEM000003\":{\n")
                 .append("\"name\": \"可乐\",\n")
                 .append("\"unit\": \"罐\",\n")
                 .append("\"price\": 4.00,\n")
                 .append("\"promotion\": true\n")
-                .append("},\n")
-                .append("\"ITEM000003\":{\n")
-                .append("\"name\": \"可乐\",\n")
-                .append("\"unit\": \"罐\",\n")
-                .append("\"price\": 4.00,\n")
-                .append("\"promotion\": true\n")
                 .append("}\n")
                 .append("}\n")
                 .toString();
-        WriteToFile(indexFile, sampleIndex);
+        WriteToFile(itemsFile, sampleItems);
 
-        String sampleItems = new StringBuilder()
+        String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("\"ITEM000003\",")
                 .append("\"ITEM000003\"")
                 .append("]")
                 .toString();
-        WriteToFile(itemsFile, sampleItems);
+        WriteToFile(indexFile, sampleIndex);
 
         InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
@@ -175,14 +169,8 @@ public class InputParserTest {
 
     @Test
     public void testDifferentItemsHavePromotionItemAndDiscount() throws Exception {
-        String sampleIndex = new StringBuilder()
+        String sampleItems = new StringBuilder()
                 .append("{\n")
-                .append("\"ITEM000003\":{\n")
-                .append("\"name\": \"可乐\",\n")
-                .append("\"unit\": \"罐\",\n")
-                .append("\"price\": 4.00,\n")
-                .append("\"promotion\": true\n")
-                .append("},\n")
                 .append("\"ITEM000003\":{\n")
                 .append("\"name\": \"可乐\",\n")
                 .append("\"unit\": \"罐\",\n")
@@ -197,16 +185,16 @@ public class InputParserTest {
                 .append("}\n")
                 .append("}\n")
                 .toString();
-        WriteToFile(indexFile, sampleIndex);
+        WriteToFile(itemsFile, sampleItems);
 
-        String sampleItems = new StringBuilder()
+        String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("\"ITEM000003\",")
                 .append("\"ITEM000003\",")
                 .append("\"ITEM000004\"")
                 .append("]")
                 .toString();
-        WriteToFile(itemsFile, sampleItems);
+        WriteToFile(indexFile, sampleIndex);
 
         InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();
@@ -222,7 +210,7 @@ public class InputParserTest {
 
     @Test
     public void testSingleItemHasDiscountAndPromotion() throws Exception {//折扣优先，若无折扣，则采用活动
-        String sampleIndex = new StringBuilder()
+        String sampleItems = new StringBuilder()
                 .append("{\n")
                 .append("\"ITEM000004\":{\n")
                 .append("\"name\": \"电池\",\n")
@@ -233,14 +221,14 @@ public class InputParserTest {
                 .append("}\n")
                 .append("}\n")
                 .toString();
-        WriteToFile(indexFile, sampleIndex);
+        WriteToFile(itemsFile, sampleItems);
 
-        String sampleItems = new StringBuilder()
+        String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("\"ITEM000004\"")
                 .append("]")
                 .toString();
-        WriteToFile(itemsFile, sampleItems);
+        WriteToFile(indexFile, sampleIndex);
 
         InputParser inputParser = new InputParser(indexFile, itemsFile);
         ArrayList<Item> items = inputParser.parser().getItems();

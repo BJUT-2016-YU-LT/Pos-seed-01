@@ -37,7 +37,7 @@ public class Item {
     public Item(String barcode, String name, String unit, double price, double discount, boolean promotion) {
         this(barcode, name, unit, price, discount);
         if(this.discount>=1||this.discount<0) {
-            this.setPromotion(promotion);
+            this.promotion = promotion;
         }
     }
 
@@ -76,19 +76,12 @@ public class Item {
     }
 
     public void setDiscount(double discount) {
-        if(discount>1&&discount<0){
-            discount = 1;
+        if(discount>=0&&discount<1) {
+            this.discount = discount;
         }
-        if(discount<1&&discount>=0&&this.promotion) {
-            this.promotion = false;
-        }
-        this.discount = discount;
     }
 
     public void setPromotion(boolean promotion){
-        if(this.discount<1&&this.discount>=0&&promotion){
-            this.discount = 1;
-        }
         this.promotion = promotion;
     }
 

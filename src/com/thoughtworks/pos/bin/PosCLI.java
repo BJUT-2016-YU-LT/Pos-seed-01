@@ -11,11 +11,15 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by Administrator on 2015/1/2.
+ * Created by 5Wenbin 2016.6.27
  */
+
 public class PosCLI {
     public static void main (String args[]) throws IOException, EmptyShoppingCartException, BarCodeReuseException {
-        InputParser inputParser = new InputParser(new File(args[0]), new File (args[1]));
+        File items = new File("C:\\Users\\5Wenbin\\Desktop\\target\\fixtures\\sampleItems.json");
+        File barCodes = new File("C:\\Users\\5Wenbin\\Desktop\\target\\fixtures\\sampleIndexes.json");
+
+        InputParser inputParser = new InputParser(barCodes, items);
 
         ShoppingChart shoppingChart = inputParser.parser();
 

@@ -18,11 +18,11 @@ import java.util.HashMap;
  * Created by 5Wenbin 2016.6.22
  */
 public class newInputParser {
-    private File indexFile;
+    private File itemsFile;
     private final ObjectMapper objectMapper;
 
-    public newInputParser(File indexFile) {
-        this.indexFile = indexFile;
+    public newInputParser(File itemsFile) {
+        this.itemsFile = itemsFile;
         objectMapper = new ObjectMapper(new JsonFactory());
         objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
     }
@@ -49,7 +49,7 @@ public class newInputParser {
     }
 
     private Item[] getItemIndexes() throws IOException {
-        String itemsIndexStr = FileUtils.readFileToString(indexFile);
+        String itemsIndexStr = FileUtils.readFileToString(itemsFile);
         TypeReference<Item[]> typeRef = new TypeReference<Item[]>() {};
         return objectMapper.readValue(itemsIndexStr, typeRef);
     }
