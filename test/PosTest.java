@@ -4,6 +4,9 @@ import com.thoughtworks.pos.domains.Pos;
 import com.thoughtworks.pos.domains.ShoppingChart;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -168,8 +171,12 @@ public class PosTest {
         String actualShoppingList = pos.getShoppingList(shoppingChart);
 
         // then
+        SimpleDateFormat date = new SimpleDateFormat("yyyy年mm月dd日 HH:mm:ss");
+
         String expectedShoppingList =
                 "***商店购物清单***\n"
+                        +"打印时间:"+ date.format(new Date()).toString() +"\n"
+                        +"----------------------\n"
                         + "名称：雪碧，数量：1瓶，单价：2.00(元)，小计：1.60(元)\n"
                         + "名称：雪碧，数量：3瓶，单价：3.00(元)，小计：6.00(元)\n"
                         + "----------------------\n"

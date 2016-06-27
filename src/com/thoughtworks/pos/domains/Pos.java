@@ -12,14 +12,18 @@ public class Pos {
     public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingCartException {
 
         Report report = new ReportDataGenerator(shoppingChart).generate();
-        //SimpleDateFormat date = new SimpleDateFormat("yyyy年mm月dd日 HH:mm:ss");
 
         StringBuilder shoppingListBuilder = new StringBuilder()
-                .append("***商店购物清单***\n")
-        /*        .append("打印时间:")
-                .append(date.format(new Date()).toString()).append("\n")
-                .append("----------------------\n")*/;
+                .append("***商店购物清单***\n");
 
+        //显示时间
+        /*
+        SimpleDateFormat date = new SimpleDateFormat("yyyy年mm月dd日 HH:mm:ss");
+        shoppingListBuilder
+                .append("打印时间:")
+                .append(date.format(new Date()).toString()).append("\n")
+                .append("----------------------\n");
+        */
         for (ItemGroup itemGroup : report.getItemGroupies()) {
             shoppingListBuilder.append(
                 new StringBuilder()
