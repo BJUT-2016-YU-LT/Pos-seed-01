@@ -1,30 +1,24 @@
 [
-  {
-    "barcode":"ITEM000004",
+  "ITEM000004":{
     "name": "电池",
     "unit": "个",
-    "price": 2.00,
-    "discount": 0.8
+    "price": 2.00
   },
-  {
-    "barcode":"ITEM000003",
+  "ITEM000003":{
     "name": "niuziru",
     "unit": "只",
     "price": 2.00,
-    "discount": 0.9
+    "discount": 1
   },
- {
-    "barcode": "ITEM000002",
+  "ITEM000002":{
     "name": "油条",
     "unit": "根",
     "price": 1.00,
-    "discount": 0
+    "discount": 1
   },
-  {
-   "barcode":"ITEM000004",
+  "ITEM000004":{
     "name": "电池",
     "unit": "个",
-    "price": 2.00,
-    "discount": 0.8
+    "price": 2.00
   }
 ]

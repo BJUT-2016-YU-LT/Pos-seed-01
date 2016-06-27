@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import com.thoughtworks.pos.services.services.newInputParser;
+import com.thoughtworks.pos.common.BarCodeReuseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +40,7 @@ public class NewInputParserTest {
     }
 
     @Test
-    public void testParseJsonFileToItems() throws Exception {
+    public void testSingleSimpleItems() throws Exception {
         String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("{\n")
@@ -65,7 +66,7 @@ public class NewInputParserTest {
     }
 
     @Test
-    public void testItemHasDiscount() throws Exception{
+    public void testSingleItemHasDiscount() throws Exception{
         String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("{\n")
@@ -132,7 +133,47 @@ public class NewInputParserTest {
     }
 
     @Test
-    public void testDifferentItemsHaveNoDiscount() throws Exception{
+    public void testDifferentItemsHaveDiscount() throws Exception{
+        String sampleIndex = new StringBuilder()
+                .append("[\n")
+                .append("{\n")
+                .append("\"barcode\":\"ITEM000004\",\n")
+                .append("\"name\": \"电池\",\n")
+                .append("\"unit\": \"个\",\n")
+                .append("\"price\": 2.00,\n")
+                .append("\"discount\": 0.8\n")
+                .append("},\n")
+                .append("{\n")
+                .append("\"barcode\":\"ITEM000003\",\n")
+                .append("\"name\": \"可乐\",\n")
+                .append("\"unit\": \"罐\",\n")
+                .append("\"price\": 4.00,\n")
+                .append("\"discount\": 0.7\n")
+                .append("}\n")
+                .append("]\n")
+                .toString();
+        WriteToFile(indexFile, sampleIndex);
+
+        newInputParser inputParser = new newInputParser(indexFile);
+        ArrayList<Item> items = inputParser.parser().getItems();
+
+        assertThat(items.size(), is(2));
+        Item item = items.get(0);
+        assertThat(item.getBarcode(), is("ITEM000004"));
+        assertThat(item.getName(), is("电池"));
+        assertThat(item.getUnit(), is("个"));
+        assertThat(item.getPrice(), is(2.00));
+        assertThat(item.getDiscount(), is(0.8));
+        item = items.get(1);
+        assertThat(item.getBarcode(), is("ITEM000003"));
+        assertThat(item.getName(), is("可乐"));
+        assertThat(item.getUnit(), is("罐"));
+        assertThat(item.getPrice(), is(4.00));
+        assertThat(item.getDiscount(), is(0.7));
+    }
+
+    @Test
+    public void testMixedItems() throws Exception{
         String sampleIndex = new StringBuilder()
                 .append("[\n")
                 .append("{\n")
@@ -145,7 +186,8 @@ public class NewInputParserTest {
                 .append("\"barcode\":\"ITEM000003\",\n")
                 .append("\"name\": \"可乐\",\n")
                 .append("\"unit\": \"罐\",\n")
-                .append("\"price\": 4.00\n")
+                .append("\"price\": 4.00,\n")
+                .append("\"discount\": 0.7\n")
                 .append("}\n")
                 .append("]\n")
                 .toString();
@@ -166,7 +208,31 @@ public class NewInputParserTest {
         assertThat(item.getName(), is("可乐"));
         assertThat(item.getUnit(), is("罐"));
         assertThat(item.getPrice(), is(4.00));
-        assertThat(item.getDiscount(), is(1.0));
+        assertThat(item.getDiscount(), is(0.7));
+    }
+
+    @Test(expected = BarCodeReuseException.class)
+    public void testDifferentItemsHaveSameBarCode() throws Exception{
+        String sampleIndex = new StringBuilder()
+                .append("[\n")
+                .append("{\n")
+                .append("\"barcode\":\"ITEM000004\",\n")
+                .append("\"name\": \"电池\",\n")
+                .append("\"unit\": \"个\",\n")
+                .append("\"price\": 2.00\n")
+                .append("},\n")
+                .append("{\n")
+                .append("\"barcode\":\"ITEM000004\",\n")
+                .append("\"name\": \"可乐\",\n")
+                .append("\"unit\": \"罐\",\n")
+                .append("\"price\": 4.00,\n")
+                .append("\"discount\": 0.7\n")
+                .append("}\n")
+                .append("]\n")
+                .toString();
+        WriteToFile(indexFile, sampleIndex);
+        newInputParser inputParser = new newInputParser(indexFile);
+        ArrayList<Item> items = inputParser.parser().getItems();
     }
 }
 

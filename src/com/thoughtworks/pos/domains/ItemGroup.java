@@ -8,10 +8,13 @@ import java.util.List;
 public class ItemGroup {
     private Item item;
     private int quanitty;
+    private int gift;
 
     public ItemGroup(Item item) {
         this.item = item;
         this.quanitty = 0;
+        this.gift = 0;
+
     }
 
     public String groupName() {
@@ -28,9 +31,28 @@ public class ItemGroup {
 
     public double groupPrice() { return item.getPrice(); }
 
-    public void addOne(){ quanitty++; }
+    public boolean groupPromotion(){ return item.getPromotion(); }
 
-    public double subTotal() { return item.getPrice()*quanitty*item.getDiscount(); }
+    public int groupGift(){ return gift; }
 
-    public double saving() { return item.getPrice()*quanitty-this.subTotal(); }
+    public void addOne(){
+        quanitty++;
+        if(item.getPromotion()&&quanitty>1){
+            gift = 1;
+        }
+    }
+
+    public double subTotal() {
+        if (item.getPromotion() && quanitty > 1) {
+            return item.getPrice() * quanitty;
+        }
+        return item.getPrice() * quanitty * item.getDiscount();
+    }
+
+    public double saving() {
+        if(item.getPromotion()&&quanitty>1) {
+            return item.getPrice();
+        }
+        return item.getPrice() * quanitty * (1 - item.getDiscount());
+    }
 }

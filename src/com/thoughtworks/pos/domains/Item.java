@@ -1,5 +1,7 @@
 package com.thoughtworks.pos.domains;
 
+import com.thoughtworks.pos.common.DiscountAndPromotionConflict;
+
 /**
  * Created by 5Wenbin 2016.6.22
  */
@@ -9,8 +11,9 @@ public class Item {
     private String unit;
     private double price;
     private double discount = 1.0;
+    private boolean promotion = false;
 
-    public Item() {
+    public Item(){
     }
 
     public Item(String barcode, String name, String unit, double price) {
@@ -20,9 +23,22 @@ public class Item {
         this.setPrice(price);
     }
 
+
     public Item(String barcode, String name, String unit, double price, double discount) {
         this(barcode, name, unit, price);
         this.setDiscount(discount);
+    }
+
+    public Item(String barcode, String name, String unit, double price, boolean promotion) {
+        this(barcode, name, unit, price);
+        this.setPromotion(promotion);
+    }
+
+    public Item(String barcode, String name, String unit, double price, double discount, boolean promotion) {
+        this(barcode, name, unit, price, discount);
+        if(this.discount>=1||this.discount<0) {
+            this.setPromotion(promotion);
+        }
     }
 
     public String getName() {
@@ -41,6 +57,8 @@ public class Item {
 
     public double getDiscount() { return discount; }
 
+    public boolean getPromotion(){ return promotion; }
+
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
@@ -49,18 +67,29 @@ public class Item {
         this.name = name;
     }
 
-    public void setUnit(String unit) { this.unit = unit; }
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public boolean setDiscount(double discount) {
-        if(discount>1){
-            return false;
+    public void setDiscount(double discount) {
+        if(discount>1&&discount<0){
+            discount = 1;
+        }
+        if(discount<1&&discount>=0&&this.promotion) {
+            this.promotion = false;
         }
         this.discount = discount;
-        return true;
+    }
+
+    public void setPromotion(boolean promotion){
+        if(this.discount<1&&this.discount>=0&&promotion){
+            this.discount = 1;
+        }
+        this.promotion = promotion;
     }
 
     public boolean equals(Item item){

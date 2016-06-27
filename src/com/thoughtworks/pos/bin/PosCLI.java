@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class PosCLI {
     public static void main (String args[]) throws IOException, EmptyShoppingCartException, BarCodeReuseException {
-        newInputParser inputParser = new newInputParser(new File(args[0]));
+        InputParser inputParser = new InputParser(new File(args[0]), new File (args[1]));
 
         ShoppingChart shoppingChart = inputParser.parser();
 
