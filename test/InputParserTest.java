@@ -2,6 +2,10 @@
  * Created by Administrator on 2015/1/2.
  */
 
+/**
+ * Added by Casper on 2016/6/22.
+ */
+
 import com.thoughtworks.pos.domains.Item;
 import org.junit.After;
 import org.junit.Before;
@@ -209,7 +213,7 @@ public class InputParserTest {
     }
 
     @Test
-    public void testSingleItemHasDiscountAndPromotion() throws Exception {//折扣活动,覆盖折扣为1
+    public void testSingleItemHasDiscountAndPromotion() throws Exception { // 活动优先,若为真则覆盖折扣为1
         String sampleItems = new StringBuilder()
                 .append("{\n")
                 .append("\"ITEM000004\":{\n")
