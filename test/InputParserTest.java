@@ -51,7 +51,7 @@ public class InputParserTest {
     public void testSimpleItem() throws Exception {
         String sampleIndex = new StringBuilder()
                 .append("{\n")
-                .append("\"ITEM000004\":{\n")
+                .append("\"ITEM000001\":{\n")
                 .append("\"name\": \"电池\",\n")
                 .append("\"unit\": \"个\",\n")
                 .append("\"price\": 2.00\n")
@@ -62,7 +62,7 @@ public class InputParserTest {
 
         String sampleItems = new StringBuilder()
                 .append("[\n")
-                .append("\"ITEM000004\"")
+                .append("\"ITEM000001\"")
                 .append("]")
                 .toString();
         WriteToFile(indexFile, sampleItems);
