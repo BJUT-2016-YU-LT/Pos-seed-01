@@ -209,7 +209,7 @@ public class InputParserTest {
     }
 
     @Test
-    public void testSingleItemHasDiscountAndPromotion() throws Exception {//折扣优先，若无折扣，则采用活动
+    public void testSingleItemHasDiscountAndPromotion() throws Exception {//折扣活动,覆盖折扣为1
         String sampleItems = new StringBuilder()
                 .append("{\n")
                 .append("\"ITEM000004\":{\n")
@@ -218,6 +218,13 @@ public class InputParserTest {
                 .append("\"price\": 2.00,\n")
                 .append("\"discount\": 0.7,\n")
                 .append("\"promotion\": true\n")
+                .append("},\n")
+                .append("\"ITEM000003\":{\n")
+                .append("\"name\": \"可乐\",\n")
+                .append("\"unit\": \"罐\",\n")
+                .append("\"price\": 3.00,\n")
+                .append("\"discount\": 0.7,\n")
+                .append("\"promotion\": false\n")
                 .append("}\n")
                 .append("}\n")
                 .toString();
@@ -225,7 +232,8 @@ public class InputParserTest {
 
         String sampleIndex = new StringBuilder()
                 .append("[\n")
-                .append("\"ITEM000004\"")
+                .append("\"ITEM000004\",")
+                .append("\"ITEM000003\"")
                 .append("]")
                 .toString();
         WriteToFile(indexFile, sampleIndex);
@@ -235,5 +243,8 @@ public class InputParserTest {
         Item item = items.get(0);
         assertThat(item.getDiscount(), is(1.0));
         assertThat(item.getPromotion(), is(true));
+        item = items.get(1);
+        assertThat(item.getDiscount(), is(0.7));
+        assertThat(item.getPromotion(), is(false));
     }
 }

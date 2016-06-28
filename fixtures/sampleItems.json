@@ -10,7 +10,7 @@
 "unit":"只",
 "price":2.00,
 "discount":0.6,
-"promotion":true
+"promotion":false
 },
 "ITEM000002":{
 "name":"油条",
