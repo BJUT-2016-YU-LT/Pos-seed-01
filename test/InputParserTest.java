@@ -51,7 +51,7 @@ public class InputParserTest {
     public void testSimpleItem() throws Exception {
         String sampleIndex = new StringBuilder()
                 .append("{\n")
-                .append("\"ITEM000001\":{\n")
+                .append("\"ITEM000005\":{\n")
                 .append("\"name\": \"电池\",\n")
                 .append("\"unit\": \"个\",\n")
                 .append("\"price\": 2.00\n")
@@ -62,7 +62,7 @@ public class InputParserTest {
 
         String sampleItems = new StringBuilder()
                 .append("[\n")
-                .append("\"ITEM000001\"")
+                .append("\"ITEM000005\"")
                 .append("]")
                 .toString();
         WriteToFile(indexFile, sampleItems);
@@ -73,7 +73,7 @@ public class InputParserTest {
         assertThat(items.size(), is(1));
         Item item = items.get(0);
         assertThat(item.getName(), is("电池"));
-        assertThat(item.getBarcode(), is("ITEM000004"));
+        assertThat(item.getBarcode(), is("ITEM000005"));
         assertThat(item.getUnit(), is("个"));
         assertThat(item.getPrice(), is(2.00));
         assertThat(item.getDiscount(), is(1.0));
