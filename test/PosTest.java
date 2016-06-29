@@ -1,11 +1,8 @@
-import com.thoughtworks.pos.common.EmptyShoppingCartException;
+import com.thoughtworks.pos.common.EmptyShoppingChartException;
 import com.thoughtworks.pos.domains.Item;
 import com.thoughtworks.pos.domains.Pos;
 import com.thoughtworks.pos.domains.ShoppingChart;
 import org.junit.Test;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -15,8 +12,8 @@ import static org.junit.Assert.assertThat;
  */
 public class PosTest {
 
-    @Test(expected = EmptyShoppingCartException.class)
-    public void testThrowExceptionWhenNoItemsInShoppingCart() throws EmptyShoppingCartException{
+    @Test(expected = EmptyShoppingChartException.class)
+    public void testThrowExceptionWhenNoItemsInShoppingCart() throws EmptyShoppingChartException {
         // given
         ShoppingChart shoppingChart = new ShoppingChart();
 

@@ -9,14 +9,22 @@ public class ItemGroup {
     private Item item;
     private int quanitty;
     private int gift;
+    private User user = new User();
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public User getUser(){
+        return user;
+    }
 
     public ItemGroup(Item item) {
         this.item = item;
         this.quanitty = 0;
         this.gift = 0;
-
     }
-
+    
     public String groupName() {
         return item.getName();
     }
@@ -46,13 +54,23 @@ public class ItemGroup {
         if (item.getPromotion() && quanitty > 1) {
             return item.getPrice() * quanitty;
         }
-        return item.getPrice() * quanitty * item.getDiscount();
+        double result;
+        result = item.getPrice() * quanitty * item.getDiscount();
+        if(user.getIsVIP()){
+            result *= item.getVipDiscount();
+        }
+        return result;
     }
 
     public double saving() {
         if(item.getPromotion()&&quanitty>1) {
             return item.getPrice();
         }
-        return item.getPrice() * quanitty * (1 - item.getDiscount());
+        double result;
+        result = item.getPrice() * quanitty * (1 - item.getDiscount());
+        if(user.getIsVIP()){
+            result += item.getPrice() * quanitty * item.getDiscount() * (1-item.getVipDiscount());
+        }
+        return result;
     }
 }

@@ -35,7 +35,7 @@ public class InputParser {
         ShoppingChart shoppingChart = new ShoppingChart();
         for (String barcode : barCodes) {
             Item mappedItem = itemIndexes.get(barcode);
-            Item item = new Item(barcode, mappedItem.getName(), mappedItem.getUnit(), mappedItem.getPrice(), mappedItem.getDiscount(), mappedItem.getPromotion());
+            Item item = new Item(mappedItem.getVipDiscount(), barcode, mappedItem.getName(), mappedItem.getUnit(), mappedItem.getPrice(), mappedItem.getDiscount(), mappedItem.getPromotion());
             shoppingChart.add(item);
         }
         return shoppingChart;

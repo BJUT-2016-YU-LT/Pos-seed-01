@@ -1,0 +1,15 @@
+{
+  "USER0001": {
+    "name": "武文斌",
+    "isVIP": true,
+    "score":550
+  },
+  "USER0002": {
+    "name": "赵佑溪",
+    "isVIP": false
+  },
+  "USER0003": {
+    "name": "牛子儒",
+    "isVIP": true
+  }
+}

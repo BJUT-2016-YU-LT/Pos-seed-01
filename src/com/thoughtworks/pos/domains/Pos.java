@@ -1,9 +1,7 @@
 package com.thoughtworks.pos.domains;
 
-import com.thoughtworks.pos.common.EmptyShoppingCartException;
+import com.thoughtworks.pos.common.EmptyShoppingChartException;
 import com.thoughtworks.pos.services.services.ReportDataGenerator;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by Administrator on 2014/12/28.
@@ -14,21 +12,33 @@ import java.text.SimpleDateFormat;
  */
 
 public class Pos {
-    public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingCartException {
+    public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingChartException {
 
         Report report = new ReportDataGenerator(shoppingChart).generate();
+        shoppingChart.getUser().addScore(report.getScore());
 
         StringBuilder shoppingListBuilder = new StringBuilder()
                 .append("***商店购物清单***\n");
 
-        //显示时间
+        StringBuilder vipStringBuilder = shoppingListBuilder;
+        if(shoppingChart.getUser().getIsVIP()){
+            vipStringBuilder
+                    .append("会员编号：")
+                    .append(shoppingChart.getUser().getUserCode().toString()).append("\t")
+                    .append("会员积分：")
+                    .append(shoppingChart.getUser().getScore()).append("分").append("\n")
+                    .append("----------------------\n");
+            shoppingListBuilder = vipStringBuilder;
+        }
 
+        //显示时间
+/*
         SimpleDateFormat date = new SimpleDateFormat("yyyy年mm月dd日 HH:mm:ss");
         shoppingListBuilder
                 .append("打印时间:")
                 .append(date.format(new Date()).toString()).append("\n")
                 .append("----------------------\n");
-
+*/
         for (ItemGroup itemGroup : report.getItemGroupies()) {
             shoppingListBuilder.append(
                 new StringBuilder()
@@ -60,6 +70,7 @@ public class Pos {
         StringBuilder subStringBuilder = shoppingListBuilder
                 .append("----------------------\n")
                 .append("总计：").append(String.format("%.2f", report.getTotal())).append("(元)").append("\n");
+        
         double saving = report.getSaving();
         if (saving == 0) {
             return subStringBuilder

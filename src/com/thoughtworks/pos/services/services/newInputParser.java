@@ -53,6 +53,5 @@ public class newInputParser {
         TypeReference<Item[]> typeRef = new TypeReference<Item[]>() {};
         return objectMapper.readValue(itemsIndexStr, typeRef);
     }
-
 }
 
