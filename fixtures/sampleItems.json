@@ -1,0 +1,32 @@
+{
+  "ITEM000004": {
+    "name": "电池",
+    "unit": "个",
+    "price": 10.00,
+    "vipDiscount": 0.6,
+    "promotion": false
+  },
+  "ITEM000003": {
+    "name": "牛肉",
+    "unit": "块",
+    "price": 2.00,
+    "discount": 0.4,
+    "vipDiscount": 0.5,
+    "promotion": false
+  },
+  "ITEM000002": {
+    "name": "油条",
+    "unit": "根",
+    "price": 1.00,
+    "vipDiscount": 0.6,
+    "promotion": true
+  },
+  "ITEM000001": {
+    "name": "牛奶",
+    "unit": "袋",
+    "price": 2.50,
+    "discount": 0.8,
+    "vipDiscount": 0.6,
+    "promotion": true
+  }
+}
