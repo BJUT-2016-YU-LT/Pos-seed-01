@@ -60,6 +60,8 @@ public class User {
         this.name = name;
     }
 
+    public void setScore(int score) { this.score = score; }
+
     public boolean setVIP() {
         if(this.isVIP) {
             return false;

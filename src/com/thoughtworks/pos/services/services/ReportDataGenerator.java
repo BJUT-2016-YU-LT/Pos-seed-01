@@ -27,7 +27,7 @@ public class ReportDataGenerator {
         List<ItemGroup> itemGroups = GetItemGroups(items);
         Report report = new Report(itemGroups);
 
-        if(shoppingChart.getUser().getUserCode()!=null && shoppingChart.getUser().getIsVIP()) {
+        if(shoppingChart.getUser().getUserCode()!=null && shoppingChart.getUser().getIsVIP()) { // 判断现有积分情况，决定消费金额和积分的比率
             if (shoppingChart.getUser().getScore() >= 0 && shoppingChart.getUser().getScore() <= 200) {
                 report.setScoreType(1);
             } else if (shoppingChart.getUser().getScore() > 200 && shoppingChart.getUser().getScore() <= 500) {
@@ -36,7 +36,7 @@ public class ReportDataGenerator {
                 report.setScoreType(5);
             }
         }
-
+        shoppingChart.getUser().addScore(report.getScore()); // 增加积分
         return report;
     }
 

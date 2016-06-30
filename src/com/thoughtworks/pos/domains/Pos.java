@@ -15,7 +15,6 @@ public class Pos {
     public String getShoppingList(ShoppingChart shoppingChart) throws EmptyShoppingChartException {
 
         Report report = new ReportDataGenerator(shoppingChart).generate();
-        shoppingChart.getUser().addScore(report.getScore());
 
         StringBuilder shoppingListBuilder = new StringBuilder()
                 .append("***商店购物清单***\n");
@@ -39,6 +38,7 @@ public class Pos {
                 .append(date.format(new Date()).toString()).append("\n")
                 .append("----------------------\n");
 */
+
         for (ItemGroup itemGroup : report.getItemGroupies()) {
             shoppingListBuilder.append(
                 new StringBuilder()
@@ -48,6 +48,7 @@ public class Pos {
                     .append("小计：").append(String.format("%.2f", itemGroup.subTotal())).append("(元)").append("\n")
                     .toString());
         }
+
         boolean flag = false;
         for (ItemGroup itemGroup : report.getItemGroupies()) {
             if(itemGroup.groupPromotion()&&itemGroup.groupSize()>1&&!flag) {
@@ -67,6 +68,7 @@ public class Pos {
                         .toString();
             }
         }
+
         StringBuilder subStringBuilder = shoppingListBuilder
                 .append("----------------------\n")
                 .append("总计：").append(String.format("%.2f", report.getTotal())).append("(元)").append("\n");

@@ -1,11 +1,10 @@
 package com.thoughtworks.pos.services.services;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.thoughtworks.pos.common.BarCodeNotExistException;
 import com.thoughtworks.pos.common.EmptyShoppingChartException;
 import com.thoughtworks.pos.domains.Item;
@@ -16,6 +15,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -30,19 +32,7 @@ public class ListInputParser{
     private File usersFile;
     private final ObjectMapper objectMapper;
 
-    public File getIndexFile(){
-        return indexFile;
-    }
-
-    public File getItemsFile(){
-        return itemsFile;
-    }
-
-    public File getUsersFile(){
-        return usersFile;
-    }
-
-    public ListInputParser(File indexFile, File itemsFile, File usersFile) {
+    public ListInputParser(File indexFile, File itemsFile, File usersFile)throws IOException {
         this.indexFile = indexFile;
         this.itemsFile = itemsFile;
         this.usersFile = usersFile;
@@ -56,7 +46,7 @@ public class ListInputParser{
 
     private ShoppingChart BuildShoppingChart(UserShoppingList userShoppingList, HashMap<String, Item> itemIndexes, HashMap<String, User> userIndexes) throws BarCodeNotExistException, EmptyShoppingChartException {
         ShoppingChart shoppingChart = new ShoppingChart();
-        User user = new User();
+        User user;
         if(!userShoppingList.getUser().isEmpty()){
             if (userIndexes.containsKey(userShoppingList.getUser())) {
                 User mappedUser = userIndexes.get(userShoppingList.getUser());
@@ -126,5 +116,31 @@ public class ListInputParser{
         String userIndexStr = FileUtils.readFileToString(usersFile);
         TypeReference<HashMap<String,User>> typeRef = new TypeReference<HashMap<String,User>>() {};
         return objectMapper.readValue(userIndexStr, typeRef);
+    }
+
+    private HashMap<String, User> setUsersScore(User user)throws IOException{
+        HashMap<String, User> newUserIndexes = getUserIndexes();
+        // 消费获取用户列表中用户编号相同的用户并修改其积分
+        if(newUserIndexes.containsKey(user.getUserCode())){
+            //System.out.println("该用户有记录");
+            newUserIndexes.get(user.getUserCode()).setScore(user.getScore());
+            return newUserIndexes;
+        }
+        else if(user.getUserCode().isEmpty()) {
+            //System.out.println("该用户无记录");
+            return newUserIndexes;
+        }
+        // 若为有编号但不存在与用户列表中，新增该用户至表中
+        //System.out.println("该用户无记录，已添加");
+        newUserIndexes.put(user.getUserCode(), user);
+        return newUserIndexes;
+    }
+
+    public String saveFile(ShoppingChart shoppingChart)throws IOException{
+        HashMap<String, User> newUserIndexes = setUsersScore(shoppingChart.getUser());
+        String userIndexesJson = objectMapper.writeValueAsString(newUserIndexes);
+        //JsonNode node = objectMapper.readTree(userIndexesJson);
+        //System.out.println(userIndexesJson);
+        return userIndexesJson;
     }
 }

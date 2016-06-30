@@ -14,10 +14,17 @@ public class UserTest {
     private User user1 = new User("USER0002", "小孩", false, 50);
 
     @Test
-    public void addScore(){
+    public void vipAddScore(){
         assertThat(user0.getScore(), is(50));
         user0.addScore(20);
         assertThat(user0.getScore(), is(70));
+    }
+
+    @Test
+    public void notVipAddScore(){
+        assertThat(user1.getScore(), is(0));
+        user1.addScore(20);
+        assertThat(user1.getScore(), is(0));
     }
 
     @Test

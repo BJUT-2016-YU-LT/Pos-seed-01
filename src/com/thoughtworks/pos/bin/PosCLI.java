@@ -28,6 +28,9 @@ public class PosCLI {
 
         Pos pos = new Pos();
         String shoppingList = pos.getShoppingList(shoppingChart);
+
+        System.out.println(inputParser.saveFile(shoppingChart));
+
         System.out.print(shoppingList);
     }
 }
