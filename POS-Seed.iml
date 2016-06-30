@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -14,4 +15,22 @@
     <orderEntry type="library" name="jackson-core-2.5.0" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.5.0" level="project" />
   </component>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="commons-io-2.4" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.5.0" level="project" />
+    <orderEntry type="library" name="jackson-core-2.5.0" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.5.0" level="project" />
+  </component>
+>>>>>>> 2b28a0ac09b1f19b7c4030b9295b86c537e8d9f6
 </module>
