@@ -14,10 +14,6 @@ import java.io.IOException;
  * Created by 5Wenbin 2016.6.27
  */
 
-
-/**
- * Created by 5Wenbin 2016.6.27
- */
 public class PosCLI {
     public static void main (String args[]) throws IOException, EmptyShoppingChartException, BarCodeReuseException, BarCodeNotExistException {
         File items = new File("C:\\Users\\5Wenbin\\Desktop\\target\\fixtures\\sampleItems.json");
